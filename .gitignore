@@ -1,8 +1,2 @@
 node_modules/
-.edge_ai_video/
-output/
-*.log
-.env
-.DS_Store
-Thumbs.db
-coverage/
+my-video-project.tar.gz
