@@ -469,16 +469,19 @@ async function run(): Promise<void> {
     res.end(JSON.stringify({ error: 'Not Found' }));
   });
 // Streamable HTTP endpoint for Joey MCP Client
-app.post('/mcp', (req, res) => {
-  res.json({
-    jsonrpc: "2.0",
-    result: {
-      protocolVersion: "2024-11-05",
-      capabilities: { tools: {} },
-      serverInfo: { name: "video-generator-mcp", version: "1.0.0" }
-    },
-    id: req.body.id || 1
-  });
+httpsServer.on('request', (req, res) => {
+  if (req.url === '/mcp' && req.method === 'POST') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({
+      jsonrpc: "2.0",
+      result: {
+        protocolVersion: "2024-11-05",
+        capabilities: { tools: {} },
+        serverInfo: { name: "video-generator-mcp", version: "1.0.0" }
+      },
+      id: 1
+    }));
+  }
 });
   httpServer.listen(port, '0.0.0.0', () => {
     console.log(`================================================================`);
